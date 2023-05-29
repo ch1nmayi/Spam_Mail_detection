@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 
 
 # Load the saved model
-loaded_model = pickle.load(open('C:/Users/RANGE GOWDA N H/Desktop/multipage/saved modules/trained_model.sav', 'rb'))
+loaded_model = pickle.load(open('trained_model.sav', 'rb'))
 
 # Load the saved vectorizer
-vectorizer = pickle.load(open('C:/Users/RANGE GOWDA N H/Desktop/multipage/saved modules/vectorizer.pkl', 'rb'))
+vectorizer = pickle.load(open('vectorizer.pkl', 'rb'))
 
 # File path to store counts
 COUNTS_FILE = 'counts.txt'
@@ -96,7 +96,7 @@ def main():
         with open(file_name) as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     
-    local_css("C:/Users/RANGE GOWDA N H/Desktop/multipage/style/style.css")
+    local_css("style.css")
     
    
    
