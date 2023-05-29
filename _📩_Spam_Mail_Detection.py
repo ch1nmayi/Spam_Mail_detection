@@ -102,7 +102,7 @@ def main():
     rad = st.sidebar.radio("NAVIGATION",["📩 Spam Mail Detection"," 👋 About "])
    
 
-  if rad == "📩 Spam Mail Detection":
+    if rad == "📩 Spam Mail Detection":
      st.title('Spam Mail Detection Web App :e-mail: ')
      st.write("---")
 
