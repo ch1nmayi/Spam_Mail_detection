@@ -46,7 +46,7 @@ def show_pie_chart():
          st.error("No data available to display the pie chart.")
          st.write("##")
         else:
-         fig, ax = plt.subplots(figsize =(3.5,3.5))
+         fig, ax = plt.subplots(figsize=(6, 6))
          fig.set_size_inches(4,4)
          ax.pie(sizes, labels=labels, autopct='%1.1f%%',colors=colors,textprops={'weight': 'bold'})
          ax.axis('equal')
