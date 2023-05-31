@@ -47,14 +47,14 @@ def show_pie_chart():
          st.write("##")
         else:
          fig, ax = plt.subplots(figsize =(3.5,3.5))
-         fig.set_size_inches(3.5,3.5)
+         fig.set_size_inches(4,4)
          ax.pie(sizes, labels=labels, autopct='%1.1f%%',colors=colors,textprops={'weight': 'bold'})
          ax.axis('equal')
          plt.title(" ")
          tmp_file = "pie_chart.png"
          fig.savefig(tmp_file)
          image = Image.open(tmp_file)
-         resized_image = image.resize((400, 400))
+         resized_image = image.resize((450, 450))
          st.image(resized_image)
          os.remove(tmp_file)
          
