@@ -4,6 +4,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import matplotlib.pyplot as plt
 from streamlit_lottie import st_lottie
 import requests
+from PIL import Image
+import os
 
 # Load the saved model
 loaded_model = pickle.load(open('trained_model.sav', 'rb'))
@@ -33,21 +35,29 @@ def clear_file():
 
         
 def show_pie_chart():
-        labels = ['HAM', 'SPAM']
+        plt.style.use('dark_background')
+        labels = ['NON-SPAM', 'SPAM']
         sizes = [len(counts['ham_count']), len(counts['spam_count'])]
 
-        colors =["#ff9999" , "#66b3ff"]
+        colors =["#266073" , "#52aac6"]
          
         if sum(sizes) == 0:
          st.write("##")
          st.error("No data available to display the pie chart.")
          st.write("##")
         else:
-         fig, ax = plt.subplots()
-         ax.pie(sizes, labels=labels, autopct='%1.1f%%',colors=colors)
+         fig, ax = plt.subplots(figsize =(3.5,3.5))
+         fig.set_size_inches(3.5,3.5)
+         ax.pie(sizes, labels=labels, autopct='%1.1f%%',colors=colors,textprops={'weight': 'bold'})
          ax.axis('equal')
          plt.title(" ")
-         st.pyplot(fig)
+         tmp_file = "pie_chart.png"
+         fig.savefig(tmp_file)
+         image = Image.open(tmp_file)
+         resized_image = image.resize((400, 400))
+         st.image(resized_image)
+         os.remove(tmp_file)
+         
 
 
 
@@ -70,17 +80,17 @@ def detect_spam(email):
 
     
     if prediction[0] == 1:
-        st.header('RESULT: Ham mail')
+        st.header('RESULT: NON-SPAM mail')
         
-        st.subheader("Total number of spam and ham mail recived :")
-        st.write("Ham Count:", len(counts['ham_count']))
-        st.write("Spam Count:", len(counts['spam_count']))
+        st.subheader("Total number of spam and non-spam mails recived :")
+        st.write("NON-SPAM Count:", len(counts['ham_count']))
+        st.write("SPAM Count:", len(counts['spam_count']))
     else:
-        st.header('RESULT: Spam mail')
+        st.header('RESULT: SPAM mail')
        
-        st.subheader("Total number of spam and ham mail recived :")
-        st.write("Ham Count:", len(counts['ham_count']))
-        st.write("Spam Count:", len(counts['spam_count']))
+        st.subheader("Total number of spam and non-spam mails recived :")
+        st.write("NON-SPAM Count:", len(counts['ham_count']))
+        st.write("SPAM Count:", len(counts['spam_count']))
 
 # Streamlit web app
 def main():
@@ -150,9 +160,9 @@ def main():
          st.write("---")
          left_c,right_c = st.columns(2)
          with left_c:
-          st.write(" :large_orange_diamond: In this spam email detection model, we use machine learning techniques to automatically identify and separate unwanted spam emails from legitimate ones (called ham emails).")
+          st.write(" :large_orange_diamond: In this spam email detection model, we use machine learning techniques to automatically identify and separate unwanted spam emails from legitimate ones .")
 
-          st.write(" :large_orange_diamond: We achieve this by training a computer program using a large collection of example emails that are already labeled as spam(0) or ham(1). The program learns patterns and characteristics specific to spam emails and uses this knowledge to classify new, unseen emails.")
+          st.write(" :large_orange_diamond: We achieve this by training a computer program using a large collection of example emails that are already labeled as spam(0) or non-spam(1). The program learns patterns and characteristics specific to spam emails and uses this knowledge to classify new, unseen emails.")
  
          with right_c:
              st_lottie(lottie_ML, height=300, key="Machine Learning")
